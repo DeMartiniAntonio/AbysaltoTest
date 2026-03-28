@@ -1,4 +1,5 @@
 using AbySalto.Junior.Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AbySalto.Junior.Domain.Entities
 {
@@ -18,6 +19,7 @@ namespace AbySalto.Junior.Domain.Entities
 
         public List<OrderArticle> OrderArticles { get; set; } = new();
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; private set; }
         public string Currency { get; set; } = string.Empty;
 

@@ -17,8 +17,13 @@ namespace AbySalto.Junior.Domain.Entities
         public string Note { get; set; } = string.Empty;
 
         public List<OrderArticle> OrderArticles { get; set; } = new();
-        
-        public decimal TotalAmount => OrderArticles.Sum(x => x.Price * x.Quantity);
+
+        public decimal TotalAmount { get; private set; }
         public string Currency { get; set; } = string.Empty;
+
+        public void RecalculateTotalAmount()
+        {
+            TotalAmount = OrderArticles.Sum(article => article.Price * article.Quantity);
+        }
     }
 }

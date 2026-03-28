@@ -4,21 +4,21 @@ namespace AbySalto.Junior.Domain.Entities
 {
     public class Order
     {
-        public int orderId { get; set; }
+        public int OrderId { get; set; }
 
-        public string customerName { get; set; }
-        public OrderStatus status { get; set; }
-        public DateTime orderTime { get; set; }
+        public string CustomerName { get; set; } = string.Empty;
+        public OrderStatus Status { get; set; }
+        public DateTime OrderTime { get; set; }
 
-        public PaymentMethod paymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
 
-        public string deliveryAddress { get; set; }
-        public string contactNumber { get; set; }
-        public string note { get; set; }
+        public string DeliveryAddress { get; set; } = string.Empty;
+        public string ContactNumber { get; set; } = string.Empty;
+        public string Note { get; set; } = string.Empty;
 
-        public List<OrderArticle> OrderArticles  { get; set; } = new();
+        public List<OrderArticle> OrderArticles { get; set; } = new();
         
-        public decimal totalAmount { get; set; }
-        public string currency { get; set; }
+        public decimal TotalAmount => OrderArticles.Sum(x => x.Price * x.Quantity);
+        public string Currency { get; set; } = string.Empty;
     }
 }

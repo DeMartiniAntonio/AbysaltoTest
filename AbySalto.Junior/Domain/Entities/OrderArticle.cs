@@ -1,12 +1,14 @@
 namespace AbySalto.Junior.Domain.Entities
 {
-    public class OrderArticles
+    public class OrderArticle
     {
-        public int orderArticlesId { get; set; }
+        public int OrderArticleId { get; set; }
 
-        public string name { get; set; }
-        public int quantity { get; set; }
-        public decimal price { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
 
+        public int OrderId { get; set; }
+        public required Order Order { get; set; }
     }
 }

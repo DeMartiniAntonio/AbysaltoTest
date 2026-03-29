@@ -1,19 +1,19 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Google.Cloud.Firestore;
 
 
 namespace AbySalto.Junior.Domain.Entities
 {
+    [FirestoreData]
     public class OrderArticle
     {
-        public int OrderArticleId { get; set; }
-
+        [FirestoreProperty]
         public string Name { get; set; } = string.Empty;
+
+        [FirestoreProperty]
         public int Quantity { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; set; }
-
-        public int OrderId { get; set; }
-        public required Order Order { get; set; }
+        [FirestoreProperty]
+        public double Price { get; set; }
     }
 }

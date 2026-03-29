@@ -1,6 +1,8 @@
 using AbySalto.Junior.Infrastructure.Database;
+using AbySalto.Junior.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Google.Cloud.Firestore;
 
 namespace AbySalto.Junior
 {
@@ -10,7 +12,14 @@ namespace AbySalto.Junior
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(
+                        new System.Text.Json.Serialization.JsonStringEnumConverter()
+                    );
+                });
+            
             builder.Services.AddOpenApi();
 
             builder.Services.AddEndpointsApiExplorer();
@@ -22,8 +31,23 @@ namespace AbySalto.Junior
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
+            builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
+            builder.Services.AddSingleton(provider =>
+            {
+                Environment.SetEnvironmentVariable(
+                "GOOGLE_APPLICATION_CREDENTIALS",
+                @"E:\AbysaltoTest\AbysaltoTest\AbySalto.Junior\firebase-key.json"
+                );
+
+                return FirestoreDb.Create("abysaltotest");
+            });
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "firebase-key.json");
+            Console.WriteLine(path);
+            Console.WriteLine(File.Exists(path));
+
+            builder.Services.AddScoped<IOrderService, OrderService>();
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())

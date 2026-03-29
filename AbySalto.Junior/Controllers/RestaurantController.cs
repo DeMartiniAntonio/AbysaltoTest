@@ -5,6 +5,11 @@ using AbySalto.Junior.Services;
 
 namespace AbySalto.Junior.Controllers
 {
+    public class UpdateStatusRequest
+    {
+        public OrderStatus Status { get; set; }
+    }
+
     [ApiController]
     [Route("api/[controller]")]
     public class RestaurantController : Controller
@@ -18,7 +23,7 @@ namespace AbySalto.Junior.Controllers
         public async Task<IActionResult> CreateOrder([FromBody] Order order)
         {
             var createdOrder = await _orderService.CreateOrderAsync(order);
-            return CreatedAtAction(nameof(GetAllOrders), new { id = createdOrder.OrderId }, createdOrder);
+            return CreatedAtAction(nameof(GetAllOrders), new { id = createdOrder.Id }, createdOrder);
         }
         [HttpGet("orders")]
         public async Task<IActionResult> GetAllOrders()
@@ -27,9 +32,9 @@ namespace AbySalto.Junior.Controllers
             return Ok(orders);
         }
         [HttpPut("orders/{id}/status")]
-        public async Task<IActionResult> UpdateOrderStatus(int id, [FromBody] OrderStatus status)
+        public async Task<IActionResult> UpdateOrderStatus(string id, [FromBody] UpdateStatusRequest request)
         {
-            var success = await _orderService.UpdateOrderStatusAsync(id, status);
+            var success = await _orderService.UpdateOrderStatusAsync(id, request.Status);
 
             if (!success)
                 return NotFound();

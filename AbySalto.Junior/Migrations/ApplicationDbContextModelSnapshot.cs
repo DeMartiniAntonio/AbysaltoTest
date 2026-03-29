@@ -59,8 +59,8 @@ namespace AbySalto.Junior.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("TotalAmount")
+                        .HasColumnType("double(18,2)");
 
                     b.HasKey("OrderId");
 
@@ -82,8 +82,8 @@ namespace AbySalto.Junior.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Price")
+                        .HasColumnType("double(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");

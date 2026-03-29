@@ -7,7 +7,7 @@ namespace AbySalto.Junior.Services
     {
         Task<Order> CreateOrderAsync(Order order);
         Task<List<Order>> GetAllOrdersAsync();
-        Task<bool> UpdateOrderStatusAsync(int orderId, OrderStatus status);
+        Task<bool> UpdateOrderStatusAsync(string orderId, OrderStatus status);
         Task<List<Order>> GetOrdersSortedByAmountAsync();
     }
 }

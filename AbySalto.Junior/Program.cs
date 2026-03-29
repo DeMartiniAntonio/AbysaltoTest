@@ -45,6 +45,7 @@ namespace AbySalto.Junior
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "firebase-key.json");
             Console.WriteLine(path);
+            Console.Write("Connected to database: ");
             Console.WriteLine(File.Exists(path));
 
             builder.Services.AddScoped<IOrderService, OrderService>();
